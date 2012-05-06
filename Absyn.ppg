@@ -1,0 +1,15 @@
+(* -*- sml -*- *)
+
+structure Absyn : ABSYN =
+struct
+  (*% *)
+  datatype exp = 
+           (*% @format(str) str *)
+           ExpVar of string
+         | (*% @format(int) int *)
+           ExpConst of int
+         | (*% @format(exp1*exp2) "(" 2[ { +1 exp1 +1 exp2 +1 } ] ")" *)
+           ExpApp of exp * exp
+         | (*% @format(str*exp) "(lambda" + str "." 2[ +1 exp ")" ] *)
+           ExpLam of string * exp
+end

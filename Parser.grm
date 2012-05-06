@@ -1,0 +1,35 @@
+
+%%
+%name MinLam
+
+%term EOF
+    | LPAREN
+    | RPAREN
+    | DOT
+    | LAMBDA
+    | SEMICOLON
+    | INT of int
+    | STRING of string
+
+%nonterm exp
+       | start
+
+%pos int
+
+%eop SEMICOLON
+
+%right DOT
+
+%start start
+
+%verbose
+
+%%
+
+exp : INT (Absyn.ExpConst INT)
+    | STRING (Absyn.ExpVar STRING)
+    | LPAREN exp exp RPAREN (Absyn.ExpApp (exp1, exp2))
+    | LPAREN LAMBDA STRING DOT exp RPAREN (Absyn.ExpLam (STRING, exp))
+
+start : exp (exp)
+
